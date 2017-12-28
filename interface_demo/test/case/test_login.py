@@ -13,7 +13,7 @@ class Login_In_Test(unittest.TestCase):
 
     #测试密码错误 http://www.senbaba.cn/login?uname=18xxxx437&pwd=11111
     def test_username_erro(self):
-        data_param={'uname':'1840xxxx37','pwd':'11111'}
+        data_param={'uname':'1840xxxxxx','pwd':'11111'}
         res = requests.get(self.url+r'/login',params=data_param)
         result=res.json()
         self.assertEqual(res.status_code,200)
@@ -28,12 +28,12 @@ class Login_In_Test(unittest.TestCase):
         self.assertEqual(result['error']['msg'],"用户名或密码错误")
 
     def test_infom_right(self):
-        data_param = {'uname':'184xxx437','pwd':'123456'}
+        data_param = {'uname':'184xxxxxx','pwd':'123456'}
         res = requests.get(self.url+r'/login',params=data_param)
         result = res.json()
         self.assertEqual(res.status_code,200)
         self.assertEqual(result['status'],'ok')
         self.assertEqual(result['data']['user']['customerName'],"DDQ")
-        self.assertEqual(result['data']['user']['contactNo'], "1xxxx37")
+        self.assertEqual(result['data']['user']['contactNo'], "1xxxxxx")
 
 
