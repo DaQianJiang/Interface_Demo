@@ -39,7 +39,7 @@ class Email(object):
                 self.msgFile = MIMEText(open(file,'r',encoding="utf-8").read())
             self.msgFile["Content-Type"] = 'application/octet-stream'
             self.msgFile["Content-Disposition"] = 'attachment; filename=' + self.fname[-1]
-            self.msgRoot.attach(self.msgRoot)
+            self.msgRoot.attach(self.msgFile)
             self.logger.info("upload file {} is".format(file))
         else:
             raise ("路径不合法或文件不存在")
@@ -59,6 +59,7 @@ class Email(object):
                 raise("配置文件格式错误")
         try:
             stmp_server = smtplib.SMTP_SSL(self.server,465)
+            stmp_server.set_debuglevel(1)
         except smtplib.SMTPConnectError as e:
             self.logger.warning("服务器连接失败%"%e)
         else:
@@ -67,23 +68,25 @@ class Email(object):
             except smtplib.SMTPAuthenticationError as e:
                 self.logger.warning("服务器登录失败%s"%e)
             else:
-                stmp_server.sendmail(self.sender,self.reveicer.split(','),self.msgRoot.as_string())
-        finally:
-            stmp_server.quit()
-            self.logger.info('发送邮件"{0}"成功!收件人"{1}"如果未收到邮件请检查垃圾箱或确认'
-                             '邮件地址是否正确'.format(self.title,self.reveicer))
-if __name__=="__main__":
-    report = r'E:\PycharmProjects\interface_demo\report\report.html'
-    fp = open(report,'wb')
-    email = Email(server='smtp.qq.com',
-                  sender='1404482005@qq.com',
-                  reveicer='1404482005@qq.com',
-                  password='',
-                  path=report,
-                  message='接口测试报告',
-                  title='测试报告发送'
-    )
-    email.send()
+                try:
+                    stmp_server.sendmail(self.sender,self.reveicer.split(','),self.msgRoot.as_string())
+                    stmp_server.quit()
+                    self.logger.info('发送邮件"{0}"成功!收件人"{1}"如果未收到邮件请检查垃圾箱或确认'
+                                     '邮件地址是否正确'.format(self.title, self.reveicer))
+                except smtplib.SMTPException as e:
+                    self.logger.warning("邮件发送失败：%s"%e)
+                    raise "邮件发送失败"
+# if __name__=="__main__":
+#     report = r'E:\PycharmProjects\interface_demo\report\report.html'
+#     email = Email(server='smtp.qq.com',
+#                   sender='1404482005@qq.com',
+#                   reveicer='1404482005@qq.com',
+#                   password='txtsoccqguvxhaca',
+#                   path=report,
+#                   message='接口测试报告',
+#                   title='测试报告发送'
+#     )
+#     email.send()
 
 
 

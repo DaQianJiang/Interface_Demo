@@ -4,8 +4,9 @@ from  logging.handlers import TimedRotatingFileHandler
 import time
 
 ROOT_PATH = os.path.split(os.path.dirname(os.path.abspath('.')))[0]
+#ROOT_PATH = os.path.dirname(os.path.abspath('.'))
 LOGGER_PATH = os.path.join(ROOT_PATH,'log')
-
+#print(os.path.split(os.path.dirname(os.path.abspath('.'))))
 class Logger(object):
     def __init__(self,logger_name):
         nowtime = time.strftime('%Y%m%d')
@@ -18,7 +19,7 @@ class Logger(object):
         self.console_handler.setLevel(logging.DEBUG) #比debug低的日志级别忽略不输出
         self.file_handler = TimedRotatingFileHandler(self.file_name,when='D',interval=1,delay=False,encoding='utf-8')
         self.file_handler.setLevel(logging.WARNING)
-        self.formatter = logging.Formatter(fmt="%(asctime)s%(filename)s[line:%(lineno)d]%(levelname)s",
+        self.formatter = logging.Formatter(fmt="%(asctime)s%(filename)s[line:%(lineno)d]%(levelname)s%(message)s",
                                            datefmt='%Y-%m-%d:%H:%M:%S')
     def get_logger(self):
         self.console_handler.setFormatter(self.formatter)
