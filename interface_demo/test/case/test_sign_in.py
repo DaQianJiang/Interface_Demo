@@ -5,12 +5,12 @@ import requests
 class Sign_In_Test(unittest.TestCase):
     def setUp(self):
         self.url='http://www.senbaba.cn'
-    # /addcustomer?username=DDQ&password=123456&phoneMsg=9896&phone=18408249437'
+    # /addcustomer?username=DDQ&password=123456&phoneMsg=9896&phone=18xxxx49437'
     def tearDown(self):
         print("注册测试完成")
 
     def test_phonenum_erro(self):
-        data_param = {'username':'DDQ','password':'123456','phoneMsg':'9896','phone':'18408249437'}
+        data_param = {'username':'DDQ','password':'123456','phoneMsg':'9896','phone':'18xxxx37'}
         res = requests.get(self.url+r'/addcustomer',params=data_param)
         data_json = json.loads(res.text)
         #data_json = res.json()
