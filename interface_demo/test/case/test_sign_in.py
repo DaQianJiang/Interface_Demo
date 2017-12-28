@@ -5,7 +5,7 @@ import requests
 class Sign_In_Test(unittest.TestCase):
     def setUp(self):
         self.url='http://www.senbaba.cn'
-    # /addcustomer?username=DDQ&password=123456&phoneMsg=9896&phone=18xxxx49437'
+  
     def tearDown(self):
         print("注册测试完成")
 
