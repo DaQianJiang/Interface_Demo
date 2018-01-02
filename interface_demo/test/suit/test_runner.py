@@ -1,6 +1,6 @@
 import unittest
 import os
-from utils.log import ROOT_PATH
+from utils.config_reader import ROOT_PATH
 from utils.HTMLTestRunner_PY3 import HTMLTestRunner
 from utils.mail import Email
 

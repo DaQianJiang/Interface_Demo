@@ -1,0 +1,17 @@
+logger:
+        logger_lever : DEBUG
+        console_level : DEBUG
+        file_level : WARNING
+        fmt : '%(asctime)s%(filename)s[line:%(lineno)d]%(levelname)s-%(message)s'
+        dmt : '%Y-%m-%d:%H:%M:%S'
+        when : 'D'
+
+URL :
+        base_url : http://www.senbaba.cn/
+
+mail :
+        server : smtp.qq.com
+        sender : 1404482005@qq.com
+        reveicer :
+                   - 1404482005@qq.com
+                   - 123131312@qq.com
