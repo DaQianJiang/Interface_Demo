@@ -2,7 +2,7 @@ import  yaml
 import os
 
 ROOT_PATH = os.path.split(os.path.dirname(os.path.abspath('.')))[0]
-CONFIG_PATH = r'E:\PycharmProjects\interface_demo\config\config.yaml'
+CONFIG_PATH = r'D:\python\PycharmProjects\interface_demo\config\config.yaml'
 #CONFIG_PATH = os.path.join(ROOT_PATH,'config\config.yaml')
 class YmalReader(object):
     def get_value(self,element):
