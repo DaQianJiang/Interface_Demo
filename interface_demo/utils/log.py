@@ -4,7 +4,8 @@ from  logging.handlers import TimedRotatingFileHandler
 import time
 from  utils.config_reader import YmalReader,ROOT_PATH
 
-#ROOT_PATH = os.path.split(os.path.dirname(os.path.abspath('.')))[0]
+
+#ROOT_PATH =os.path.dirname(os.path.abspath('.'))
 LOGGER_PATH = os.path.join(ROOT_PATH,'log')
 #print(os.path.split(os.path.dirname(os.path.abspath('.'))))
 class Logger(object):
@@ -37,9 +38,9 @@ class Logger(object):
         self.logger.addHandler(self.console_handler)
         self.logger.addHandler(self.file_handler)
         return self.logger
-if __name__=="__main__":
-    log1 = Logger('test_logger').get_logger()
-    log1.debug("debuge")
-    log1.warning("woring")
-    log1.info("info")
+# if __name__=="__main__":
+#     log1 = Logger('test_logger').get_logger()
+#     log1.debug("debuge")
+#     log1.warning("woring")
+#     log1.info("info")
 

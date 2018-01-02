@@ -4,18 +4,18 @@ from email.mime.multipart import MIMEMultipart
 from utils.log import Logger
 import os
 import re
+from utils.config_reader import YmalReader
 
 class Email(object):
     logger = Logger('mail').get_logger()
-    def __init__(self,server,
-                 sender,reveicer,
-                 password,message,title,path):
-        self.server = server
-        self.sender = sender
-        self.reveicer = reveicer
-        self.password = password
-        self.message = message
-        self.title = title
+    yaml_reader = YmalReader().get_value('mail')
+    def __init__(self,path):
+        self.server = self.yaml_reader.get('server')
+        self.sender = self.yaml_reader.get('sender')
+        self.reveicer = self.yaml_reader.get('reveicer')
+        self.password = self.yaml_reader.get('password')
+        self.message = self.yaml_reader.get('message')
+        self.title = self.yaml_reader.get('title')
         self.path = path
         self.msgRoot = MIMEMultipart('related') #创建MIMEMultipart对象
 
@@ -46,7 +46,7 @@ class Email(object):
 
     def send(self):
         self.msgRoot['From'] = self.sender
-        self.msgRoot['To'] = self.reveicer
+        self.msgRoot['To'] = ','.join(self.reveicer) #用,将list中的每一项连接
         self.msgRoot['Subject'] = self.title
 
         if self.path:
@@ -69,7 +69,7 @@ class Email(object):
                 self.logger.warning("服务器登录失败%s"%e)
             else:
                 try:
-                    stmp_server.sendmail(self.sender,self.reveicer.split(','),self.msgRoot.as_string())
+                    stmp_server.sendmail(self.sender,self.reveicer,self.msgRoot.as_string())
                     stmp_server.quit()
                     self.logger.info('发送邮件"{0}"成功!收件人"{1}"如果未收到邮件请检查垃圾箱或确认'
                                      '邮件地址是否正确'.format(self.title, self.reveicer))

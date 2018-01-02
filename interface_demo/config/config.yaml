@@ -14,4 +14,7 @@ mail :
         sender : 1404482005@qq.com
         reveicer :
                    - 1404482005@qq.com
-                   - 123131312@qq.com
+                   - 1404482005@qq.com
+        password : txtsoccqguvxhaca
+        message : '接口测试报告'
+        title : '测试报告发送'
